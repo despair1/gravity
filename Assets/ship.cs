@@ -4,6 +4,10 @@ using System.Collections;
 public class ship : MonoBehaviour {
     public Camera cam;
     float speed = 100;
+    private float thrust=10;
+    public Rigidbody2D rb;
+    private float[] accel = new float[2] { 0, 7 };
+    private int accelNum = 0;
 	// Use this for initialization
 	void Start () {
         cam = Camera.main;
@@ -18,6 +22,14 @@ public class ship : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if ( Input.GetButtonDown("acc0"))
+        {
+            accelNum = 0;
+        }
+        if (Input.GetButtonDown("acc1"))
+        {
+            accelNum = 1;
+        }
         Debug.DrawLine(transform.position, cam.ScreenToWorldPoint(Input.mousePosition), Color.green);
         Debug.DrawLine(transform.position, transform.right*10, Color.blue);
         Vector3 lookAt = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -33,6 +45,7 @@ public class ship : MonoBehaviour {
         lookAt = transform.up;
         Debug.Log("screen2world" + lookAt.x + "_" + lookAt.y + "_" + lookAt.z);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, q, speed * Time.deltaTime);
+        rb.AddForce(transform.up * accel[accelNum]);
 
     }
 }
