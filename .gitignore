@@ -3,6 +3,7 @@
 # =============== #
 Temp/
 Library/
+gravity_Data/
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
@@ -30,3 +31,4 @@ obj/
 ehthumbs.db
 Thumbs.db
 *.pdb
+*.exe

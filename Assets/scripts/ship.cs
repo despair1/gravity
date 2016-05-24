@@ -4,12 +4,17 @@ using System.Collections;
 public class ship : MonoBehaviour {
     public Camera cam;
     float speed = 100;
-    private float thrust=10;
+    //private float thrust=10;
     public Rigidbody2D rb;
     private float[] accel = new float[2] { 0, 7 };
     private int accelNum = 0;
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    Vector3 thrust {
+        get { return transform.up * accel[accelNum]; }
+    }
+
+
+    void Start () {
         cam = Camera.main;
         Quaternion q = Quaternion.LookRotation(new Vector3(0,1,0), new Vector3(0, 0, 1));
         //transform.rotation = q;
@@ -45,7 +50,8 @@ public class ship : MonoBehaviour {
         lookAt = transform.up;
         Debug.Log("screen2world" + lookAt.x + "_" + lookAt.y + "_" + lookAt.z);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, q, speed * Time.deltaTime);
-        rb.AddForce(transform.up * accel[accelNum]);
+        //rb.AddForce(transform.up * accel[accelNum]);
+        rb.AddForce(thrust);
 
     }
 }
